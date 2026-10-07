@@ -9,9 +9,109 @@
   </head>
 
   <body>
+    <div class="game-container">
+    <h1>Choose Your Own Adventure</h1>
+    <div class="statistics" id="inventory-display"></div>;
+    <p id="story-text">You are standing in front of a mysterious house. What do you want to do?</p>
+    <div class="choices" id="choice-container">
+      <button onclick="chooseOption(1)"> Walk into the house</button>
+      <button onclick="chooseOption(2)"> Explore the backyard</button>
+    </div>
+  </div>
 
   </body>
 
   <script>
-    
+    let currentStep ="start";
+    let hasBasket = false;
+
+    const storyText =document.getElementById("story-text");
+    const choiceContainer = document.getElementById("choice-container");
+    const inventoryDisplay = document.getElementById("inventory-display");
+
+    function chooseOption(choice){
+      if (currentStep == "start"){
+        if (choice === 1){
+          currentStep = "house_entrance";
+          storyText.textContent = "";
+          choiceContainer.innerHTML = `
+            <button onclick="chooseOption1"> You walk into a house</button>
+            <button onclick="chooseOption2"></button>
+          `;
+        }else if (choice === 2){
+          currentStep = "backyard";
+          storyText.textContent = "You decide to explore the backyard. You see a beautiful garden with colorful flowers and a small pond.";
+          endGame();
+        }
+      }
+
+      else if (currentStep == "house_entrance"){
+        if (choice === 1){
+          hasBasket = true;
+          inventoryDisplay.textContent = "You picked up a basket.";
+        
+          currentStep = "backyard";
+          storyText.textContent = "You walk into the backyard. You see a beautiful garden with colorful flowers and a small pond.";
+          choiceContainer.innerHTML = `
+            <button onclick="chooseOption1"> Explore the garden</button>
+            <button onclick="chooseOption2"> Swim in the pool</button>
+          `;
+        } else if (choice === 2){
+          currentStep = "inside_house";
+          storyText.textContent = "You decide to stay inside the house"
+          endGame();
+        }
+      }
+
+      else if (currentStep == "backyard"){
+        if (choice === 1){
+          if(hasBasket){
+            currentStep ="garden";
+            storyText.textContent = "You explore the garden and find a treasure chest hidden behind the flowers!";
+            choiceContainer.innerHTML = `
+              <button onclick="chooseOption(1)"> Open the treasure chest</button>
+              <button onclick="chooseOption(2)"> Leave the treasure chest alone</button>
+            `;
+          }else{
+            currentStep = "outdoor-hangout";
+            storyText.textContent = "You explore the garden but you don't have a basket to carry the flowers.";
+          }
+          endGame();
+        } else if (choice === 2){
+          currentStep = "pool";
+          storyText.textContent = "You decide to swim in the pool. It's refreshing!";
+          endGame();
+        }
+      }
+
+    else if (currentStep == "garden"){
+      if (choice === 1){
+        currentStep = "treasure";
+        storyText.textContent = "You open the treasure chest and find a pile of gold coins!";
+        endGame();
+      } else if (choice === 2){
+        currentStep = "leave_treasure";
+        storyText.textContent = "You decide to leave the treasure chest alone and enjoy the beauty of the garden.";
+        endGame();
+      }
+    }
+
+    function endGame(){
+      choiceContainer.innerHTML = `
+        <button onclick="resetGame()"> Play Again</button>
+      `;
+    }
+
+    function resetGame(){
+      currentStep = "start";
+      hasBasket = false;
+      storyText.textContent = "You are standing in front of a mysterious house. What do you want to do?";
+      inventoryDisplay.textContent = "";
+      choiceContainer.innerHTML = `
+        <button onclick="chooseOption(1)"> Walk into the house</button>
+        <button onclick="chooseOption(2)"> Explore the backyard</button>
+      `;
+      inventoryDisplay.textContent = "";
+    }
+  } 
   </script>

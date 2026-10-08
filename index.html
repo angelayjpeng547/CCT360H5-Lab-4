@@ -12,7 +12,7 @@
       <h1>Choose Your Own Adventure</h1>
       <p id="navigation-instruction">Use the buttons below to make your choices.</p>
       <div class="game-container">
-        <div class="statistics" id="inventory-display"></div>;
+        <div class="statistics" id="inventory-display"></div>
         <p id="story-text">You are standing in front of a mysterious house. What do you want to do?</p>
         <div class="choices" id="choice-container">
           <button onclick="chooseOption(1)"> Walk into the house</button>
@@ -33,14 +33,22 @@
       if (currentStep == "start"){
         if (choice === 1){
           currentStep = "house_entrance";
-          storyText.textContent = "You have decided to enter the house. Do you decide to pick up the basket or not?";
+          storyText.innerHTML = `
+          You have decided to enter the house. Do you decide to pick up the basket or not?
+           <br>
+           <img src="images/entrance.jpg" alt="Entrance" />
+`;
           choiceContainer.innerHTML = `
             <button onclick="chooseOption(1)"> Pick up the basket</button>
             <button onclick="chooseOption(2)">Don't pick up the basket</button>
           `;
         }else if (choice === 2){
           currentStep = "backyard";
-          storyText.textContent = "You decide to explore the backyard. You see a beautiful garden with colorful flowers and a small pond.";
+          storyText.innerHTML =  `
+          You have decided to explore the backyard. You see a beautiful garden with colorful flowers and a small pond.
+           <br>
+           <img src="images/backyard.jpg" alt="Backyard" />
+`;
           endGame();
         }
       }
@@ -58,7 +66,11 @@
           `;
         } else if (choice === 2){
           currentStep = "living_room";
-          storyText.textContent = "You decide not to pick up the basket.You will stay in the living room. You see a cozy living room with a fireplace and a bookshelf filled with interesting books.";
+          storyText.innerHTML = `
+          You decide not to pick up the basket.You will stay in the living room. You see a cozy living room with a fireplace and a bookshelf filled with interesting books.
+           <br>
+           <img src="images/livingroom.jpg" alt="Living Room" />
+        `;
           endGame();
         }
       }
@@ -87,7 +99,8 @@
     else if (currentStep == "staircase"){
       if (choice === 1){
         currentStep = "bedroom";
-        storyText.textContent = "You go up the staircase and find a cozy bedroom with a large bed and a window that overlooks the garden.";
+        storyText.innerHTML = "You go up the staircase and find a cozy bedroom with a large bed and a window that overlooks the garden.<br>";
+        storyText.innerHTML += `<img src="images/bedroom.jpg" alt="Bedroom" />`;
         endGame();
       } else if (choice === 2){
         currentStep = "bathroom";

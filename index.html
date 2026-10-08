@@ -12,6 +12,7 @@
     <div class="game-container">
     <h1>Choose Your Own Adventure</h1>
     <div class="statistics" id="inventory-display"></div>;
+    <p id="navigation-instruction">Use the buttons below to make your choices.</p>
     <p id="story-text">You are standing in front of a mysterious house. What do you want to do?</p>
     <div class="choices" id="choice-container">
       <button onclick="chooseOption(1)"> Walk into the house</button>
@@ -35,8 +36,8 @@
           currentStep = "house_entrance";
           storyText.textContent = "";
           choiceContainer.innerHTML = `
-            <button onclick="chooseOption1"> Don't pick up the basket</button>
-            <button onclick="chooseOption2">Don't pick up the basket</button>
+            <button onclick="chooseOption(1)"> Pick up the basket</button>
+            <button onclick="chooseOption(2)">Don't pick up the basket</button>
           `;
         }else if (choice === 2){
           currentStep = "backyard";
@@ -50,51 +51,52 @@
           hasBasket = true;
           inventoryDisplay.textContent = "You picked up a basket.";
         
-          currentStep = "backyard";
-          storyText.textContent = "You walk into the backyard. You see a beautiful garden with colorful flowers and a small pond.";
+          currentStep = "entryway";
+          storyText.textContent = "You pick up the basket and enter the house. You find yourself in a cozy entryway with a sofa and a staircase leading to the second floor.";
           choiceContainer.innerHTML = `
-            <button onclick="chooseOption1"> Explore the garden</button>
-            <button onclick="chooseOption2"> Swim in the pool</button>
+            <button onclick="chooseOption(1)"> Go to the second floor</button>
+            <button onclick="chooseOption(2)"> Stay on the first floor</button>
           `;
         } else if (choice === 2){
-          currentStep = "inside_house";
-          storyText.textContent = "You decide to stay inside the house"
+          currentStep = "living_room";
+          storyText.textContent = "You decide not to pick up the basket.You will stay in the living room. You see a cozy living room with a fireplace and a bookshelf filled with interesting books.";
           endGame();
         }
       }
 
-      else if (currentStep == "backyard"){
+      else if (currentStep == "entryway"){
         if (choice === 1){
           if(hasBasket){
-            currentStep ="garden";
-            storyText.textContent = "You explore the garden and find a treasure chest hidden behind the flowers!";
+            currentStep ="staircase";
+            storyText.textContent = "You sit on the sofa and notice a staircase leading to the second floor. You also see a door that leads to the bedroom.";
             choiceContainer.innerHTML = `
-              <button onclick="chooseOption(1)"> Open the treasure chest</button>
-              <button onclick="chooseOption(2)"> Leave the treasure chest alone</button>
+              <button onclick="chooseOption(1)"> Go up the staircase</button>
+              <button onclick="chooseOption(2)"> Go to dining room</button>
             `;
           }else{
-            currentStep = "outdoor-hangout";
+            currentStep = "dining_room";
             storyText.textContent = "You explore the garden but you don't have a basket to carry the flowers.";
           }
           endGame();
         } else if (choice === 2){
-          currentStep = "pool";
-          storyText.textContent = "You decide to swim in the pool. It's refreshing!";
+          currentStep = "piano-room";
+          storyText.textContent = "You decide to play the piano. It's beautiful!";
           endGame();
         }
       }
 
-    else if (currentStep == "garden"){
+    else if (currentStep == "staircase"){
       if (choice === 1){
-        currentStep = "treasure";
-        storyText.textContent = "You open the treasure chest and find a pile of gold coins!";
+        currentStep = "bedroom";
+        storyText.textContent = "You go up the staircase and find a cozy bedroom with a large bed and a window that overlooks the garden.";
         endGame();
       } else if (choice === 2){
-        currentStep = "leave_treasure";
-        storyText.textContent = "You decide to leave the treasure chest alone and enjoy the beauty of the garden.";
+        currentStep = "bathroom";
+        storyText.textContent = "You go to the bathroom and find a hidden passage behind the mirror.";
         endGame();
       }
     }
+  }
 
     function endGame(){
       choiceContainer.innerHTML = `
@@ -113,5 +115,5 @@
       `;
       inventoryDisplay.textContent = "";
     }
-  } 
+   
   </script>

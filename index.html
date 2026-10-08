@@ -21,23 +21,23 @@
       </div>
     </body>
 
-  <script>
-    let currentStep ="start";
-    let hasBasket = false;
+    <script>
+      let currentStep ="start";
+      let hasBasket = false;
 
-    const storyText =document.getElementById("story-text");
-    const choiceContainer = document.getElementById("choice-container");
-    const inventoryDisplay = document.getElementById("inventory-display");
+      const storyText =document.getElementById("story-text");
+      const choiceContainer = document.getElementById("choice-container");
+      const inventoryDisplay = document.getElementById("inventory-display");
 
-    function chooseOption(choice){
-      if (currentStep == "start"){
-        if (choice === 1){
-          currentStep = "house_entrance";
-          storyText.innerHTML = `
-          You have decided to enter the house. Do you decide to pick up the basket or not?
+      function chooseOption(choice){
+        if (currentStep == "start"){
+          if (choice === 1){
+            currentStep = "house_entrance";
+            storyText.innerHTML = `
+             You have decided to enter the house. Do you decide to pick up the basket or not?
            <br>
            <img src="images/entrance.jpg" alt="Entrance" />
-`;
+           `;  
           choiceContainer.innerHTML = `
             <button onclick="chooseOption(1)"> Pick up the basket</button>
             <button onclick="chooseOption(2)">Don't pick up the basket</button>
@@ -125,5 +125,5 @@
         <button onclick="chooseOption(2)"> Explore the backyard</button>
       `;
     }
-   
-  </script>
+    </script>
+</html>

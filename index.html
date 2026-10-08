@@ -87,8 +87,8 @@
           }else{
             currentStep = "dining_room";
             storyText.textContent = "You explore the garden but you don't have a basket to carry the flowers.";
+            endGame();
           }
-          endGame();
         } else if (choice === 2){
           currentStep = "piano-room";
           storyText.textContent = "You decide to play the piano. It's beautiful!";

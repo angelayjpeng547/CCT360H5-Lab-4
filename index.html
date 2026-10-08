@@ -9,18 +9,17 @@
   </head>
 
   <body>
-    <div class="game-container">
-    <h1>Choose Your Own Adventure</h1>
-    <div class="statistics" id="inventory-display"></div>;
-    <p id="navigation-instruction">Use the buttons below to make your choices.</p>
-    <p id="story-text">You are standing in front of a mysterious house. What do you want to do?</p>
-    <div class="choices" id="choice-container">
-      <button onclick="chooseOption(1)"> Walk into the house</button>
-      <button onclick="chooseOption(2)"> Explore the backyard</button>
-    </div>
-  </div>
-
-  </body>
+      <h1>Choose Your Own Adventure</h1>
+      <p id="navigation-instruction">Use the buttons below to make your choices.</p>
+      <div class="game-container">
+        <div class="statistics" id="inventory-display"></div>;
+        <p id="story-text">You are standing in front of a mysterious house. What do you want to do?</p>
+        <div class="choices" id="choice-container">
+          <button onclick="chooseOption(1)"> Walk into the house</button>
+          <button onclick="chooseOption(2)"> Explore the backyard</button>
+        </div>
+      </div>
+    </body>
 
   <script>
     let currentStep ="start";
@@ -34,7 +33,7 @@
       if (currentStep == "start"){
         if (choice === 1){
           currentStep = "house_entrance";
-          storyText.textContent = "";
+          storyText.textContent = "You have decided to enter the house. Do you decide to pick up the basket or not?";
           choiceContainer.innerHTML = `
             <button onclick="chooseOption(1)"> Pick up the basket</button>
             <button onclick="chooseOption(2)">Don't pick up the basket</button>
@@ -108,12 +107,10 @@
       currentStep = "start";
       hasBasket = false;
       storyText.textContent = "You are standing in front of a mysterious house. What do you want to do?";
-      inventoryDisplay.textContent = "";
       choiceContainer.innerHTML = `
         <button onclick="chooseOption(1)"> Walk into the house</button>
         <button onclick="chooseOption(2)"> Explore the backyard</button>
       `;
-      inventoryDisplay.textContent = "";
     }
    
   </script>

@@ -1,0 +1,103 @@
+      let currentStep ="start";
+      let hasBasket = false;
+
+      const storyText =document.getElementById("story-text");
+      const choiceContainer = document.getElementById("choice-container");
+      const inventoryDisplay = document.getElementById("inventory-display");
+
+      function chooseOption(choice){
+        if (currentStep == "start"){
+          if (choice === 1){
+            currentStep = "house_entrance";
+            storyText.innerHTML = `
+             You have decided to enter the house. Do you decide to pick up the basket or not?
+           <br>
+           <img src="images/entrance.jpg" alt="Entrance" />
+           `;  
+          choiceContainer.innerHTML = `
+            <button onclick="chooseOption(1)"> Pick up the basket</button>
+            <button onclick="chooseOption(2)">Don't pick up the basket</button>
+          `;
+        }else if (choice === 2){
+          currentStep = "backyard";
+          storyText.innerHTML =  `
+          You have decided to explore the backyard. You see a beautiful garden with colorful flowers and a small pond.
+           <br>
+           <img src="images/backyard.jpg" alt="Backyard" />
+`;
+          endGame();
+        }
+      }
+
+      else if (currentStep == "house_entrance"){
+        if (choice === 1){
+          hasBasket = true;
+          inventoryDisplay.textContent = "You picked up a basket.";
+        
+          currentStep = "entryway";
+          storyText.textContent = "You pick up the basket and enter the house. You find yourself in a cozy entryway with a sofa and a staircase leading to the second floor.";
+          choiceContainer.innerHTML = `
+            <button onclick="chooseOption(1)"> Go to the second floor</button>
+            <button onclick="chooseOption(2)"> Stay on the first floor</button>
+          `;
+        } else if (choice === 2){
+          currentStep = "living_room";
+          storyText.innerHTML = `
+          You decide not to pick up the basket.You will stay in the living room. You see a cozy living room with a fireplace and a bookshelf filled with interesting books.
+           <br>
+           <img src="images/livingroom.jpg" alt="Living Room" />
+        `;
+          endGame();
+        }
+      }
+
+      else if (currentStep == "entryway"){
+        if (choice === 1){
+          if(hasBasket){
+            currentStep ="staircase";
+            storyText.textContent = "You sit on the sofa and notice a staircase leading to the second floor. You also see a door that leads to the bedroom.";
+            choiceContainer.innerHTML = `
+              <button onclick="chooseOption(1)"> Go up the staircase</button>
+              <button onclick="chooseOption(2)"> Go to dining room</button>
+            `;
+          }else{
+            currentStep = "dining_room";
+            storyText.textContent = "You explore the garden but you don't have a basket to carry the flowers.";
+            endGame();
+          }
+        } else if (choice === 2){
+          currentStep = "piano-room";
+          storyText.textContent = "You decide to play the piano. It's beautiful!";
+          endGame();
+        }
+      }
+
+    else if (currentStep == "staircase"){
+      if (choice === 1){
+        currentStep = "bedroom";
+        storyText.innerHTML = "You go up the staircase and find a cozy bedroom with a large bed and a window that overlooks the garden.<br>";
+        storyText.innerHTML += `<img src="images/bedroom.jpg" alt="Bedroom" />`;
+        endGame();
+      } else if (choice === 2){
+        currentStep = "bathroom";
+        storyText.textContent = "You go to the bathroom and find a hidden passage behind the mirror.";
+        endGame();
+      }
+    }
+  }
+
+    function endGame(){
+      choiceContainer.innerHTML = `
+        <button onclick="resetGame()"> Play Again</button>
+      `;
+    }
+
+    function resetGame(){
+      currentStep = "start";
+      hasBasket = false;
+      storyText.textContent = "You are standing in front of a mysterious house. What do you want to do?";
+      choiceContainer.innerHTML = `
+        <button onclick="chooseOption(1)"> Walk into the house</button>
+        <button onclick="chooseOption(2)"> Explore the backyard</button>
+      `;
+    }
